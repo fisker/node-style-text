@@ -18,11 +18,17 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "browser": "./browser.js",
       "default": "./index.js"
     },
     "./*": "./*"
   },
+  "files": [
+    "index.js",
+    "browser.js",
+    "index.d.ts"
+  ],
   "scripts": {
     "clean": "run-p \"clean:*\"",
     "clean:dist": "del-cli dist",
@@ -38,7 +44,7 @@
     "lint:markdown": "markdownlint-cli2",
     "lint:package-json": "yarn run fix:package-json --check",
     "lint:prettier": "prettier . --check",
-    "prepare": "husky install",
+    "prepare": "husky",
     "test": "node --test test.js",
     "test-coverage": "c8 yarn test"
   },
