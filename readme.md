@@ -14,7 +14,7 @@
 [package_version_badge]: https://img.shields.io/npm/v/node-style-text.svg?style=flat-square
 [package_link]: https://www.npmjs.com/package/node-style-text
 
-> Style text with [`util.style`](https://nodejs.org/api/util.html#utilstyletextformat-text-options)
+> Style text with [`util.styleText`](https://nodejs.org/api/util.html#utilstyletextformat-text-options)
 
 ## Install
 
