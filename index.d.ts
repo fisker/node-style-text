@@ -1,4 +1,7 @@
-export default interface StyleText {
+interface StyleText {
   (text: string): string
-  readonly reset: this
 }
+
+declare const styleText: StyleText
+
+export default styleText
