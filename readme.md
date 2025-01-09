@@ -14,7 +14,7 @@
 [package_version_badge]: https://img.shields.io/npm/v/node-style-text.svg?style=flat-square
 [package_link]: https://www.npmjs.com/package/node-style-text
 
-> Style text with [`util.styleText`](https://nodejs.org/api/util.html#utilstyletextformat-text-options)
+> Chainable [`util.styleText()`](https://nodejs.org/api/util.html#utilstyletextformat-text-options).
 
 ## Install
 
@@ -28,6 +28,25 @@ yarn add node-style-text
 import styleText from 'node-style-text'
 
 console.log(styleText.blue.underline('Hello world!'))
+```
+
+## Motivation
+
+Provide convenience API.
+
+```diff
+- import {styleText} from 'node:utils'
++ import styleText from 'node-style-text'
+
+console.log(
+-   styleText('blue', 'Hello world!')
++   styleText.blue('Hello world!')
+)
+
+console.log(
+-   styleText(['blue', 'underline'], 'Hello world!')
++   styleText.blue.underline('Hello world!')
+)
 ```
 
 ## API
