@@ -1,9 +1,72 @@
-import {styleText} from 'node:util'
+// https://nodejs.org/docs/latest/api/util.html#foreground-colors
+type ForegroundColors =
+  | 'black'
+  | 'blackBright'
+  | 'blue'
+  | 'blueBright'
+  | 'cyan'
+  | 'cyanBright'
+  | 'gray'
+  | 'green'
+  | 'greenBright'
+  | 'grey'
+  | 'magenta'
+  | 'magentaBright'
+  | 'red'
+  | 'redBright'
+  | 'white'
+  | 'whiteBright'
+  | 'yellow'
+  | 'yellowBright'
+// https://nodejs.org/docs/latest/api/util.html#background-colors
+type BackgroundColors =
+  | 'bgBlack'
+  | 'bgBlackBright'
+  | 'bgBlue'
+  | 'bgBlueBright'
+  | 'bgCyan'
+  | 'bgCyanBright'
+  | 'bgGray'
+  | 'bgGreen'
+  | 'bgGreenBright'
+  | 'bgGrey'
+  | 'bgMagenta'
+  | 'bgMagentaBright'
+  | 'bgRed'
+  | 'bgRedBright'
+  | 'bgWhite'
+  | 'bgWhiteBright'
+  | 'bgYellow'
+  | 'bgYellowBright'
+// https://nodejs.org/docs/latest/api/util.html#modifiers
+type Modifiers =
+  | 'blink'
+  | 'bold'
+  | 'dim'
+  | 'doubleunderline'
+  | 'framed'
+  | 'hidden'
+  | 'inverse'
+  | 'italic'
+  | 'overlined'
+  | 'reset'
+  | 'strikethrough'
+  | 'underline'
 
-type Format = Parameters<typeof styleText>[0]
+type Formats = ForegroundColors | BackgroundColors | Modifiers
 
-type StyleText = ((text: string) => string) & {
-  [key in Format]: StyleText
-}
+type StyleText = {
+  /**
+	@param text - Text to add style.
+
+	@example
+	```
+	import styleText from 'nodeStyle';
+
+	styleText.blue('Hello, world!');
+	```
+	*/
+  (text: string): string
+} & {readonly [key in Formats]: StyleText}
 
 export default StyleText
