@@ -1,6 +1,3 @@
-const styleText = new Proxy(String, {
-  get: () => styleText,
-  apply: (target, __, [text]) => target(text),
-})
+const styleText = new Proxy(String, {get: () => styleText})
 
 export default styleText
