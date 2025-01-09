@@ -63,10 +63,12 @@ type StyleText = {
 	```
 	import styleText from 'nodeStyle';
 
-	styleText.blue('Hello, world!');
+	styleText('Hello, world!');
 	```
 	*/
   (text: string): string
 } & {readonly [key in Formats]: StyleText}
 
-export default StyleText
+const styleText: StyleText
+
+export default styleText
