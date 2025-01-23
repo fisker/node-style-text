@@ -19,4 +19,28 @@ test('Main', () => {
     styleText.underline.red.bgGreen('foo'),
     '\u001B[4m\u001B[31m\u001B[42mfoo\u001B[49m\u001B[39m\u001B[24m',
   )
+
+  // Support alias https://nodejs.org/api/util.html#customizing-utilinspect-colors
+  const aliases = [
+    ['strikethrough', ['strikeThrough', 'crossedout', 'crossedOut']],
+    ['hidden', ['conceal']],
+    ['dim', ['faint']],
+    ['inverse', ['swapcolors', 'swapColors']],
+    ['doubleunderline', ['doubleUnderline']],
+    ['gray', ['grey', 'blackBright']],
+    ['bgGray', ['bgGrey', 'bgBlackBright']],
+  ].flatMap(([style, aliases]) => aliases.map((alias) => ({style, alias})))
+
+  for (const {style, alias} of aliases) {
+    assert.equal(
+      typeof styleText[alias],
+      'function',
+      `Should support alias: '${styleText.blue(alias)}'.`,
+    )
+    assert.equal(
+      styleText[style]('foo'),
+      styleText[alias]('foo'),
+      `Alias '${styleText.blue(alias)}' should output the same as '${styleText.blue(style)}'.`,
+    )
+  }
 })
