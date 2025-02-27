@@ -1,74 +1,44 @@
-// https://nodejs.org/docs/latest/api/util.html#foreground-colors
-type ForegroundColors =
-  | 'black'
-  | 'blackBright'
-  | 'blue'
-  | 'blueBright'
-  | 'cyan'
-  | 'cyanBright'
-  | 'gray'
-  | 'green'
-  | 'greenBright'
-  | 'grey'
-  | 'magenta'
-  | 'magentaBright'
-  | 'red'
-  | 'redBright'
-  | 'white'
-  | 'whiteBright'
-  | 'yellow'
-  | 'yellowBright'
-// https://nodejs.org/docs/latest/api/util.html#background-colors
-type BackgroundColors =
-  | 'bgBlack'
-  | 'bgBlackBright'
-  | 'bgBlue'
-  | 'bgBlueBright'
-  | 'bgCyan'
-  | 'bgCyanBright'
-  | 'bgGray'
-  | 'bgGreen'
-  | 'bgGreenBright'
-  | 'bgGrey'
-  | 'bgMagenta'
-  | 'bgMagentaBright'
-  | 'bgRed'
-  | 'bgRedBright'
-  | 'bgWhite'
-  | 'bgWhiteBright'
-  | 'bgYellow'
-  | 'bgYellowBright'
-// https://nodejs.org/docs/latest/api/util.html#modifiers
-type Modifiers =
-  | 'blink'
-  | 'bold'
-  | 'dim'
-  | 'doubleunderline'
-  | 'framed'
-  | 'hidden'
-  | 'inverse'
-  | 'italic'
-  | 'overlined'
-  | 'reset'
-  | 'strikethrough'
-  | 'underline'
+import type {styleText as nodeUtilStyleText} from 'node:util'
 
-type Formats = ForegroundColors | BackgroundColors | Modifiers
+type OmitArray<T> = T extends (infer U)[] ? U : T
+type Formats = OmitArray<Parameters<typeof nodeUtilStyleText>[0]>
+type Text = Parameters<typeof nodeUtilStyleText>[1]
+type StyleTextReturnType = ReturnType<typeof nodeUtilStyleText>
 
 type StyleText = {
   /**
-	@param text - Text to add style.
+  Returns a formatted text with `format` applied.
+  @param text - Text to add style.
 
-	@example
-	```
-	import styleText from 'nodeStyle';
+  The full list of formats can be found in [colors](https://nodejs.org/docs/latest/api/util.html#customizing-utilinspect-colors).
 
-	styleText('Hello, world!');
-	```
-	*/
-  (text: string): string
-} & {readonly [key in Formats]: StyleText}
+  @example
+  ```
+  import styleText from 'nodeStyle';
 
-const styleText: StyleText
+  styleText.red('Hello, world!');
+  styleText.bold('Hello, world!');
+  styleText.red.bold('Hello, world!');
+  ```
+  */
+  (text: Text): StyleTextReturnType
+} & {[key in Formats]: StyleText}
+
+/**
+Returns a formatted text with `format` applied.
+@param text - Text to add style.
+
+The full list of formats can be found in [colors](https://nodejs.org/docs/latest/api/util.html#customizing-utilinspect-colors).
+
+@example
+```
+import styleText from 'nodeStyle';
+
+styleText.red('Hello, world!');
+styleText.bold('Hello, world!');
+styleText.red.bold('Hello, world!');
+```
+*/
+declare const styleText: StyleText
 
 export default styleText

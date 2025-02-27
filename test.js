@@ -1,6 +1,6 @@
-import styleText from './index.js'
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import styleText from './index.js'
 
 test('Main', () => {
   assert.equal(typeof styleText, 'function')

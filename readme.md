@@ -53,6 +53,6 @@ console.log(
 
 `styleText.<format>[.<format>...](string)`
 
-Example: `styleText.red.bold.underline('Hello', 'world');`
+Example: `styleText.red.bold.underline('Hello, world!');`
 
 Available formats: [`util.inspect.colors`](https://nodejs.org/api/util.html#customizing-utilinspect-colors)
