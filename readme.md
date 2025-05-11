@@ -22,10 +22,9 @@ yarn add node-style-text
 ## Usage
 
 ```js
-import styleText, {styleTextStderr} from 'node-style-text'
+import styleText from 'node-style-text'
 
 console.log(styleText.blue.underline('Hello world!'))
-console.error(styleTextStderr.blue.underline('Hello world!'))
 ```
 
 ## Motivation
