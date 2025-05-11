@@ -1,9 +1,9 @@
 import util from 'node:util'
 
-const factory = (...formats) =>
-  new Proxy((text) => util.styleText(formats, text), {
+const factory = (options, ...formats) =>
+  new Proxy((text) => util.styleText(formats, text, options), {
     get: (_, format) =>
-      util.inspect.colors[format] && factory(...formats, format),
+      util.inspect.colors[format] && factory(options, ...formats, format),
   })
 
 export default factory()
