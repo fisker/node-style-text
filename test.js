@@ -9,7 +9,7 @@ test('Main', () => {
   assert.equal(typeof styleText.bold, 'function')
   assert.equal(typeof styleText.nonExists, 'undefined')
   assert.equal(styleText('foo'), 'foo')
-  assert.equal(styleText.bold('foo'), '\x1B[1mfoo\x1B[22m')
+  assert.equal(styleText.bold('foo'), '\u001B[1mfoo\u001B[22m')
   assert.equal(styleText.underline('foo'), '\u001B[4mfoo\u001B[24m')
   assert.equal(styleText.red('foo'), '\u001B[31mfoo\u001B[39m')
   assert.equal(styleText.bgRed('foo'), '\u001B[41mfoo\u001B[49m')
