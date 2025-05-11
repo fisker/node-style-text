@@ -4,6 +4,7 @@ import test from 'node:test'
 import styleText from './index.js'
 
 test('Main', () => {
+  process.env.FORCE_COLOR = '1'
   assert.equal(typeof styleText, 'function')
   assert.equal(typeof styleText.bold, 'function')
   assert.equal(typeof styleText.nonExists, 'undefined')
