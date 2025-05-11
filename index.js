@@ -7,4 +7,4 @@ const factory = (options, ...formats) =>
   })
 
 export default factory()
-export const styleTextStderr = factory()
+export const styleTextStderr = factory({stream: process.stderr})
