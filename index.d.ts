@@ -40,7 +40,5 @@ styleText.red.bold('Hello, world!');
 ```
 */
 declare const styleText: StyleText
-declare const styleTextStderr: StyleText
 
 export default styleText
-export {styleTextStderr}

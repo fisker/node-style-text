@@ -1,10 +1,8 @@
 import {expectType, expectError} from 'tsd'
-import styleTextStdout, {styleTextStderr} from './index.js'
+import styleText from './index.js'
 
-for (const styleText of [styleTextStdout, styleTextStderr]) {
-  expectType<string>(styleText('foo'))
-  expectType<typeof styleTextStdout>(styleText.green)
-  expectError(styleText.nonExists)
-  expectError(styleText(1))
-  expectError(styleText())
-}
+expectType<string>(styleText('foo'))
+expectType<typeof styleText>(styleText.green)
+expectError(styleText.nonExists)
+expectError(styleText(1))
+expectError(styleText())

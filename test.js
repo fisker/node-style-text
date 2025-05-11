@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import process from 'node:process'
 import test from 'node:test'
-import styleText, {styleTextStderr} from './index.js'
+import styleText from './index.js'
 
 test('Main', () => {
   process.env.FORCE_COLOR = 3
@@ -69,10 +69,12 @@ function overrideColorDepth({stream, depth}) {
     delete process.env.FORCE_COLOR
     stream.isTTY = true
     stream.getColorDepth = () => depth
-    return {
-      stdout: styleText.red('foo'),
-      stderr: styleTextStderr.red('foo'),
-    }
+    return Object.fromEntries(
+      ['stdout', 'stderr'].map((type) => [
+        type,
+        styleText.red('foo', {stream: process[type]}),
+      ]),
+    )
   } finally {
     if (originalForceColor !== undefined) {
       process.env.FORCE_COLOR = originalForceColor
