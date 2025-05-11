@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
+import process from 'node:process'
 import test from 'node:test'
-import styleText from './index.js'
+import styleText, {styleTextStderr} from './index.js'
 
 test('Main', () => {
   assert.equal(typeof styleText, 'function')
@@ -43,4 +44,39 @@ test('Main', () => {
       `Alias '${styleText.blue(alias)}' should output the same as '${styleText.blue(style)}'.`,
     )
   }
+
+  const notColored = 'foo'
+  const redColored = '\u001B[31mfoo\u001B[39m'
+  assert.deepEqual(overrideColorDepth({stream: process.stdout, depth: 0}), {
+    stdout: notColored,
+    stderr: redColored,
+  })
+  assert.deepEqual(overrideColorDepth({stream: process.stderr, depth: 0}), {
+    stdout: redColored,
+    stderr: notColored,
+  })
 })
+
+// https://github.com/nodejs/node/blob/a822a1cbe73789a41ba30ab61deda88f2982ba3d/lib/internal/util/colors.js#L23C21-L23C34
+function overrideColorDepth({stream, depth}) {
+  const originalIsTty = stream.isTTY
+  const originalGetColorDepth = stream.getColorDepth
+  console.log({stream})
+  const originalForceColor = process.env.FORCE_COLOR
+
+  try {
+    delete process.env.FORCE_COLOR
+    stream.isTTY = true
+    stream.getColorDepth = () => depth
+    return {
+      stdout: styleText.red('foo'),
+      stderr: styleTextStderr.red('foo'),
+    }
+  } finally {
+    if (originalForceColor !== undefined) {
+      process.env.FORCE_COLOR = originalForceColor
+    }
+    stream.isTTY = originalIsTty
+    stream.getColorDepth = originalGetColorDepth
+  }
+}

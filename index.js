@@ -1,9 +1,14 @@
 import util from 'node:util'
+import process from 'node:process'
 
-const factory = (...formats) =>
-  new Proxy(util.styleText.bind(util, formats), {
-    get: (_, format) =>
-      util.inspect.colors[format] && factory(...formats, format),
-  })
+const createColors = (options) => {
+  const factory = (...formats) =>
+    new Proxy((text) => util.styleText(formats, text, options), {
+      get: (_, format) =>
+        util.inspect.colors[format] && factory(...formats, format),
+    })
+  return factory()
+}
 
-export default factory()
+export default createColors()
+export const styleTextStderr = createColors({stream: process.stderr})
