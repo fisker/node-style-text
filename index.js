@@ -1,7 +1,7 @@
 import util from 'node:util'
 
 const factory = (...formats) =>
-  new Proxy(util.styleText.bind(util, formats), {
+  new Proxy((text) => util.styleText(formats, text), {
     get: (_, format) =>
       util.inspect.colors[format] && factory(...formats, format),
   })
