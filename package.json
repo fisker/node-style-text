@@ -1,6 +1,6 @@
 {
   "name": "node-style-text",
-  "version": "0.0.8",
+  "version": "0.0.7",
   "description": "Chainable `util.styleText()`.",
   "homepage": "https://github.com/fisker/node-style-text#readme",
   "bugs": {
