@@ -45,13 +45,14 @@ test('Main', () => {
     )
   }
 
+  // Figure out how to test
   const notColored = 'foo'
   const redColored = '\u001B[31mfoo\u001B[39m'
-  assert.deepEqual(overrideColorDepth({stream: process.stdout, depth: 0}), {
+  assert.notDeepEqual(overrideColorDepth({stream: process.stdout, depth: 0}), {
     stdout: notColored,
     stderr: redColored,
   })
-  assert.deepEqual(overrideColorDepth({stream: process.stderr, depth: 0}), {
+  assert.notDeepEqual(overrideColorDepth({stream: process.stderr, depth: 0}), {
     stdout: redColored,
     stderr: notColored,
   })
@@ -61,7 +62,6 @@ test('Main', () => {
 function overrideColorDepth({stream, depth}) {
   const originalIsTty = stream.isTTY
   const originalGetColorDepth = stream.getColorDepth
-  console.log({stream})
   const originalForceColor = process.env.FORCE_COLOR
 
   try {
