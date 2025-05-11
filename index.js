@@ -1,5 +1,4 @@
 import utility from 'node:util'
-import process from 'node:process'
 
 const factory = (options, ...formats) =>
   new Proxy((text) => utility.styleText(formats, text, options), {
