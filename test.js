@@ -7,7 +7,7 @@ test('Main', () => {
   process.env.FORCE_COLOR = '1'
   assert.equal(typeof styleText, 'function')
   assert.equal(typeof styleText.bold, 'function')
-  assert.equal(typeof styleText.nonExists, 'undefined')
+  assert.equal(typeof styleText.nonExists, 'function')
   assert.equal(styleText('foo'), 'foo')
   assert.equal(styleText.bold('foo'), '\u001B[1mfoo\u001B[22m')
   assert.equal(styleText.underline('foo'), '\u001B[4mfoo\u001B[24m')
@@ -44,6 +44,15 @@ test('Main', () => {
       styleText[alias]('foo'),
       `Alias '${styleText.blue(alias)}' should output the same as '${styleText.blue(style)}'.`,
     )
+  }
+
+  assert.throws(() => styleText.nonExists('foo'), TypeError)
+
+  const nodejsMajorVersion = Number(process.versions.node.split('.')[0])
+  if (nodejsMajorVersion >= 22) {
+    assert.equal(styleText.none('foo'), 'foo')
+  } else {
+    assert.throws(() => styleText.none('foo'), TypeError)
   }
 
   // Figure out how to test
