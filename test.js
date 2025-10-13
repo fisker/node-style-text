@@ -22,6 +22,11 @@ test('Main', () => {
     '\u001B[4m\u001B[31m\u001B[42mfoo\u001B[49m\u001B[39m\u001B[24m',
   )
 
+  assert.equal(
+    styleText.cyan.underline`hello ${'world'}`,
+    '\x1B[36m\x1B[4mhello world\x1B[24m\x1B[39m',
+  )
+
   // Support alias https://nodejs.org/api/util.html#customizing-utilinspect-colors
   const aliases = [
     ['strikethrough', ['strikeThrough', 'crossedout', 'crossedOut']],
