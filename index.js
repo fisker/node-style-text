@@ -1,16 +1,18 @@
 import util from 'node:util'
 
 const factory = (...formats) =>
-  new Proxy(util.styleText.bind(util, formats), {
-    get(_, format) {
-      return factory(...formats, format)
-    },
-    apply(target, thisArg, args) {
+  new Proxy(
+    (...args) => {
       if (args[0].raw) {
         args = [String.raw({raw: args[0]}, ...args.slice(1))]
       }
-      return Reflect.apply(target, thisArg, args)
+      return util.styleText(formats, ...args)
     },
-  })
+    {
+      get(_, format) {
+        return factory(...formats, format)
+      },
+    },
+  )
 
 export default factory()
