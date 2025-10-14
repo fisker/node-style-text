@@ -25,26 +25,41 @@ yarn add node-style-text
 import styleText from 'node-style-text'
 
 console.log(styleText.blue.underline('Hello world!'))
+console.log(styleText.blue.underline`Hello ${'world'}!`))
 ```
 
 ## Motivation
 
 Provide convenience API.
 
-```diff
-- import {styleText} from 'node:utils'
-+ import styleText from 'node-style-text'
+1. Chainable
 
-console.log(
--   styleText('blue', 'Hello world!')
-+   styleText.blue('Hello world!')
-)
+   ```diff
+   - import {styleText} from 'node:utils'
+   + import styleText from 'node-style-text'
 
-console.log(
--   styleText(['blue', 'underline'], 'Hello world!')
-+   styleText.blue.underline('Hello world!')
-)
-```
+   console.log(
+   -   styleText('blue', 'Hello world!')
+   +   styleText.blue('Hello world!')
+   )
+
+   console.log(
+   -   styleText(['blue', 'underline'], 'Hello world!')
+   +   styleText.blue.underline('Hello world!')
+   )
+   ```
+
+2. Support [tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)
+
+   ```diff
+   - import {styleText} from 'node:utils'
+   + import styleText from 'node-style-text'
+
+   console.log(
+   -   styleText(['blue', 'underline'], `Hello ${'world'}!`)
+   +   styleText.blue.underline`Hello ${'world'}!`
+   )
+   ```
 
 ## API
 

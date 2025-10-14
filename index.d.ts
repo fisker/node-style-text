@@ -22,6 +22,26 @@ type StyleText = {
   ```
   */
   (text: Text): StyleTextReturnType
+
+  /**
+  Returns a formatted text with `format` applied.
+  @param text - Text to add style.
+
+  The full list of formats can be found in [colors](https://nodejs.org/docs/latest/api/util.html#customizing-utilinspect-colors).
+
+  @example
+  ```
+  import styleText from 'nodeStyle';
+
+  styleText.red`Hello, ${'world'}!`;
+  styleText.bold`Hello, ${'world'}!`;
+  styleText.red.bold`Hello, ${'world'}!`;
+  ```
+  */
+  (
+    template: {raw: readonly string[]},
+    ...substitutions: any[]
+  ): StyleTextReturnType
 } & {[key in Formats]: StyleText}
 
 /**
