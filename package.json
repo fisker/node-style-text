@@ -27,6 +27,7 @@
   "files": [
     "index.js",
     "browser.js",
+    "utilities.js",
     "index.d.ts"
   ],
   "scripts": {

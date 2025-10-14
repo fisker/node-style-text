@@ -1,3 +1,3 @@
-const styleText = new Proxy(String, {get: () => styleText})
+import {factory} from './utilities.js'
 
-export default styleText
+export default factory((_, value) => value)

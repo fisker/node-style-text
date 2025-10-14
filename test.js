@@ -1,7 +1,17 @@
 import assert from 'node:assert/strict'
 import process from 'node:process'
 import test from 'node:test'
+import {styleText as nodeUtilStyleText} from 'node:util'
+import styleTextBrowser from './browser.js'
 import styleText from './index.js'
+
+const supportsNone = (() => {
+  try {
+    return nodeUtilStyleText('none', 'foo') === 'foo'
+  } catch {
+    return false
+  }
+})()
 
 test('Main', () => {
   process.env.FORCE_COLOR = '1'
@@ -26,6 +36,7 @@ test('Main', () => {
     styleText.cyan.underline`hello ${'world'}`,
     '\x1B[36m\x1B[4mhello world\x1B[24m\x1B[39m',
   )
+  assert.equal(styleTextBrowser.cyan.underline`hello ${'world'}`, 'hello world')
 
   // Support alias https://nodejs.org/api/util.html#customizing-utilinspect-colors
   const aliases = [
@@ -53,11 +64,8 @@ test('Main', () => {
 
   assert.throws(() => styleText.nonExists('foo'), TypeError)
 
-  const nodejsMajorVersion = Number(process.versions.node.split('.')[0])
-  if (nodejsMajorVersion >= 22) {
+  if (supportsNone) {
     assert.equal(styleText.none('foo'), 'foo')
-  } else {
-    assert.throws(() => styleText.none('foo'), TypeError)
   }
 
   // Figure out how to test
