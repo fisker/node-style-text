@@ -46,7 +46,7 @@ Provide convenience API.
 1. Chainable
 
    ```diff
-   - import {styleText} from 'node:utils'
+   - import {styleText} from 'node:util'
    + import styleText from 'node-style-text'
 
    console.log(
@@ -63,7 +63,7 @@ Provide convenience API.
 2. Support [tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)
 
    ```diff
-   - import {styleText} from 'node:utils'
+   - import {styleText} from 'node:util'
    + import styleText from 'node-style-text'
 
    console.log(
